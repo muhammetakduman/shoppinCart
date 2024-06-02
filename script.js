@@ -59,8 +59,12 @@ class UI{
                     event.target.disabled = true;
                     event.target.style.opacity = ".3";
                     //* get products from products
-                    let cartItem = {...Storage.getProducts(id), amount:1};
+                    let cartItem = {...Storage.getProduct(id), amount:1};
                     console.log(cartItem);
+                    /// add product to cart
+                    cart = [...cart,cartItem];
+                    //*save cart in local storage
+                    Storage.saveCart(cart);
                 });
             }
         });
@@ -71,17 +75,15 @@ class UI{
 
 class Storage{
     static SaveProducts(products){
-        localStorage.setItem("Products",JSON.stringify(products));
+        localStorage.setItem("products",JSON.stringify(products));
     };
-    static getProducts(id) {
+    static getProduct(id) {
         let products = JSON.parse(localStorage.getItem("products"));
-        if (!products) {
-            return null; // veya [] gibi bir varsayılan değer dönebilirsiniz
-        }
-        return products.find(product => product.id === id);
+        return products.find(products => products.id === id);
     }
-    
-
+    static saveCart(cart){
+        localStorage.setItem("cart", JSON.stringify(cart));
+    };
 }
 
 
