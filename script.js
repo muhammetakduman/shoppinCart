@@ -35,7 +35,7 @@ class UI{
                     </div>
                     <div class="product-hover">
                         <span class="product-title">${item.title}</span>
-                        <span class="product-price">${item.price}</span>
+                        <span class="product-price">$${item.price}</span>
                         <button class="btn-add-to-cart" data-id = ${item.id}>
                             <i class="fas fa-cart-shopping"></i>
                         </button>
@@ -65,12 +65,28 @@ class UI{
                     cart = [...cart,cartItem];
                     //*save cart in local storage
                     Storage.saveCart(cart);
+                    //*save cart values
+                    this.saveCartValues(cart);
+                    //* display cart item
+                    this.addCartItem(cartItem);
+
                 });
             }
         });
 
     }
-
+    saveCartValues(cart) {
+        let tempTotal = 0;
+        let itemsTotal = 0;
+        cart.map(item => {
+            tempTotal += item.price * item.amount;
+            itemsTotal += item.amount;
+        });
+        console.log(tempTotal);
+        console.log(itemsTotal);        //sıkıntı çöz bunu kral
+        cartTotal.innerText = ` TOTAL : $${parseFloat(tempTotal.toFixed(2))};`
+        cartItems.innerText = `Items : ${itemsTotal}`;
+    };
 }
 
 class Storage{
