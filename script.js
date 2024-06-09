@@ -69,6 +69,7 @@ class UI{
                     this.saveCartValues(cart);
                     //* display cart item
                     this.addCartItem(cartItem);
+                    console.log(cartItem);
 
                 });
             }
